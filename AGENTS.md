@@ -1,14 +1,8 @@
 # AGENTS.md
 
-## Vault Context
+## Public Preview Context
 
-Связанные заметки, решения и контекст проекта живут в Obsidian-vault:
-- Reference: `<LOCAL_OBSIDIAN_VAULT>\reference\running-coach.md` — обзор проекта, стек, агенты
-- Решения: `<LOCAL_OBSIDIAN_VAULT>\brain\Key Decisions.md`
-- Паттерны: `<LOCAL_OBSIDIAN_VAULT>\brain\Patterns.md`
-- Грабли: `<LOCAL_OBSIDIAN_VAULT>\brain\Gotchas.md`
-
-При вопросах о контексте, прошлых решениях или паттернах — читай оттуда. Долгоживущие знания (решения, паттерны, грабли) фиксируй в vault, а не в коде.
+This is a public-safe preview copy. Personal Obsidian vault notes, runtime data, reports, logs, and secrets are intentionally excluded. Long-lived project rules that are safe to share live in this repository under `docs/`, `agents/`, and `prompts/`.
 
 ## Project
 
