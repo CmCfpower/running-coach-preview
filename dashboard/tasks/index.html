@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Running Coach Dashboard</title>
+    <link rel="stylesheet" href="./styles.css?v=20260515-1810" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <div class="nav-logo">Running<span>Coach</span></div>
+        <nav class="main-tabs" aria-label="Разделы">
+          <button class="main-tab is-active" data-view="project" type="button">Проект</button>
+          <button class="main-tab" data-view="roadmap" type="button">Задачи</button>
+          <button class="main-tab" data-view="agents" type="button">Агенты</button>
+          <button class="main-tab" data-view="brief" type="button">Краткое ТЗ</button>
+          <button class="theme-toggle" id="themeToggle" type="button">Светлая</button>
+        </nav>
+      </header>
+
+      <section class="hero-grid">
+        <article class="hero-card">
+          <div class="hero-phase" id="heroPhase">Статус проекта</div>
+          <h1 id="heroTitle">Загрузка статуса...</h1>
+          <p class="hero-sub" id="heroSubtitle">
+            Дашборд подтягивает актуальное состояние из локальных файлов проекта.
+          </p>
+          <div class="hero-stats" id="heroStats"></div>
+          <div class="hero-timeline" id="heroTimeline" aria-label="Ключевые этапы"></div>
+        </article>
+
+        <article class="summary-panel" aria-label="Сводка прогресса">
+          <div class="summary-head">
+            <span>Общая готовность</span>
+            <strong id="progressValue">0%</strong>
+          </div>
+          <div class="progress-track">
+            <span id="progressBar"></span>
+          </div>
+          <div class="summary-grid">
+            <span><b id="doneCount">0</b> готово</span>
+            <span><b id="activeCount">0</b> в работе</span>
+            <span><b id="plannedCount">0</b> в плане</span>
+          </div>
+          <div class="summary-source" id="projectStatusSource">Источник: fallback</div>
+        </article>
+      </section>
+
+      <section class="view is-active" data-panel="project">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Описание</p>
+            <h2>Что строим</h2>
+          </div>
+        </div>
+        <div class="content-grid">
+          <article class="info-card wide">
+            <h3>Цель проекта</h3>
+            <p>
+              Running Coach - локальная система персонального бегового тренера и нутрициолога.
+              Сначала делаем переносимый Telegram MVP на файлах, затем добавляем распознавание,
+              аналитику, dashboard, питание и инфраструктуру.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Главный принцип</h3>
+            <p>
+              Не строить тяжелую платформу до первого полезного результата. Данные лежат локально,
+              форматы прозрачные, LLM подключаются через OpenAI-compatible API.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Переносимость</h3>
+            <p>
+              Код и документация должны быть понятны Claude и Qwen без зависимости от Codex:
+              промпты, схемы, инструкции и команды запуска лежат прямо в репозитории.
+            </p>
+          </article>
+        </div>
+        <div class="metric-row" aria-label="Контрольные точки">
+          <article>
+            <span class="metric-label">Первый полезный запуск</span>
+            <strong>Этап 2</strong>
+            <p>бот принимает тренировки и показывает план дня/недели</p>
+          </article>
+          <article>
+            <span class="metric-label">Ежедневный режим</span>
+            <strong>Этап 4</strong>
+            <p>утренние сообщения, расписание, вопросы по бегу</p>
+          </article>
+          <article>
+            <span class="metric-label">Продуктовый вид</span>
+            <strong>Этап 7</strong>
+            <p>dashboard, питание, отчеты и недельная аналитика</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" data-panel="roadmap">
+        <div class="toolbar" aria-label="Фильтры задач">
+          <div>
+            <p class="eyebrow">Roadmap</p>
+            <h2>Этапы и выполнение</h2>
+          </div>
+          <div class="toolbar-actions">
+            <div class="filter-tabs" role="tablist" aria-label="Фильтр по статусу">
+              <button class="filter-tab is-active" data-filter="all" type="button">Все</button>
+              <button class="filter-tab" data-filter="active" type="button">В работе</button>
+              <button class="filter-tab" data-filter="soon" type="button">Ближайшие</button>
+              <button class="filter-tab" data-filter="done" type="button">Готово</button>
+            </div>
+            <button id="resetProgress" class="ghost-button" type="button">Сбросить</button>
+          </div>
+        </div>
+        <section class="status-strip">
+          <article>
+            <span class="status-marker usable-now"></span>
+            <h3>Можно пользоваться</h3>
+            <p>После этапа 2: бот принимает тренировки, показывает план дня и недели.</p>
+          </article>
+          <article>
+            <span class="status-marker useful"></span>
+            <h3>Полезно каждый день</h3>
+            <p>После этапа 4: напоминания, стабильные файлы данных, базовый QA.</p>
+          </article>
+          <article>
+            <span class="status-marker mature"></span>
+            <h3>Похоже на продукт</h3>
+            <p>После этапа 7: dashboard, питание, аналитика, переносимость на Vercel/VDS.</p>
+          </article>
+        </section>
+        <section class="roadmap" id="roadmap" aria-label="Этапы проекта"></section>
+      </section>
+
+      <section class="view" data-panel="agents">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Agent Monitor</p>
+            <h2>Агенты и зоны ответственности</h2>
+          </div>
+        </div>
+        <div class="agent-kpi-row" id="agentKpis"></div>
+        <div class="agent-live-row">
+          <span id="agentUpdated">Статусы загружаются из локальных файлов...</span>
+          <span id="botRuntime">Бот: проверяется...</span>
+        </div>
+        <div class="agent-filter-row" aria-label="Фильтр агентов">
+          <button class="agent-filter is-active" data-agent-filter="all" type="button">Все</button>
+          <button class="agent-filter" data-agent-filter="running" type="button">Бег</button>
+          <button class="agent-filter" data-agent-filter="platform" type="button">Платформа</button>
+          <button class="agent-filter" data-agent-filter="nutrition" type="button">Питание</button>
+          <button class="agent-filter" data-agent-filter="ready" type="button">Готовы</button>
+          <button class="agent-filter" data-agent-filter="training" type="button">К обучению</button>
+        </div>
+        <div class="agent-grid" id="agentGrid"></div>
+
+        <div class="section-head compact-head">
+          <div>
+            <p class="eyebrow">Pipeline</p>
+            <h2>Конвейер событий</h2>
+          </div>
+        </div>
+        <div class="agent-pipeline" id="agentPipeline"></div>
+
+        <div class="section-head compact-head">
+          <div>
+            <p class="eyebrow">Live Log</p>
+            <h2>Последние события агентов</h2>
+          </div>
+        </div>
+        <div class="agent-events" id="agentEvents"></div>
+
+        <div class="section-head compact-head">
+          <div>
+            <p class="eyebrow">Interaction Map</p>
+            <h2>Схема взаимодействия агентов</h2>
+          </div>
+        </div>
+        <div class="agent-map">
+          <div class="map-node lead">project-manager-agent</div>
+          <div class="map-node sublead">project-orchestrator</div>
+          <div class="map-branch">
+            <div class="map-column">
+              <div class="map-node domain">running-domain-agent</div>
+              <div class="map-node">running-intake-agent</div>
+              <div class="map-node">running-data-agent</div>
+              <div class="map-node">running-plan-agent</div>
+              <div class="map-node">running-qa-agent</div>
+            </div>
+            <div class="map-column">
+              <div class="map-node domain">nutrition-domain-agent</div>
+              <div class="map-node muted-node">nutrition-data-agent</div>
+              <div class="map-node muted-node">nutrition-plan-agent</div>
+              <div class="map-node muted-node">grocery-agent</div>
+            </div>
+            <div class="map-column">
+              <div class="map-node domain">platform-domain-agent</div>
+              <div class="map-node">storage-agent</div>
+              <div class="map-node">llm-routing-agent</div>
+              <div class="map-node">dashboard-agent</div>
+              <div class="map-node">documentation-agent</div>
+            </div>
+          </div>
+        </div>
+
+        <article class="info-card wide mermaid-card">
+          <h3>Mermaid-схема для документации</h3>
+          <pre><code>flowchart TD
+  PM["project-manager-agent"] --> O["project-orchestrator"]
+  O --> R["running-domain-agent"]
+  O --> N["nutrition-domain-agent"]
+  O --> P["platform-domain-agent"]
+  R --> RI["running-intake-agent"]
+  R --> RD["running-data-agent"]
+  R --> RP["running-plan-agent"]
+  R --> RQ["running-qa-agent"]
+  RD --> WF["workout-file-agent"]
+  RD --> WV["workout-validation-agent"]
+  P --> S["storage-agent"]
+  P --> L["llm-routing-agent"]
+  P --> D["dashboard-agent"]</code></pre>
+        </article>
+
+        <article class="info-card wide">
+          <h3>Матрица ответственности</h3>
+          <div class="agent-table-wrap">
+            <table class="agent-table">
+              <thead>
+                <tr>
+                  <th>Агент</th>
+                  <th>Отвечает за</th>
+                  <th>Вход</th>
+                  <th>Выход</th>
+                  <th>Skills</th>
+                  <th>Обучение</th>
+                </tr>
+              </thead>
+              <tbody id="agentMatrix"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" data-panel="brief">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Техническое задание</p>
+            <h2>Краткое ТЗ</h2>
+          </div>
+        </div>
+        <div class="brief-layout">
+          <article class="info-card wide">
+            <h3>MVP</h3>
+            <ul class="plain-list">
+              <li>Один Telegram-бот для бега.</li>
+              <li>Профиль спортсмена в <code>data/profile.yaml</code>.</li>
+              <li>Прием фото тренировок и сохранение в <code>data/workouts/&lt;date&gt;/raw</code>.</li>
+              <li>План дня и недели в JSON/Markdown.</li>
+              <li>Команды <code>/today</code>, <code>/week</code>, <code>/profile</code>.</li>
+              <li>QA по бегу через Claude/Qwen с коротким контекстом.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>Ограничения первой версии</h3>
+            <ul class="plain-list">
+              <li>Без Postgres, Redis, Qdrant и Minio.</li>
+              <li>Без обязательного VDS-деплоя.</li>
+              <li>Без nutrition-бота в первом запуске.</li>
+              <li>Все исходные данные хранятся локально.</li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <h3>Переносимость</h3>
+            <ul class="plain-list">
+              <li>Обычный Python-код без зависимости от Codex.</li>
+              <li>LLM через <code>base_url</code>, <code>api_key</code>, <code>model</code>.</li>
+              <li>Промпты и JSON-схемы лежат отдельными файлами.</li>
+              <li>Инструкции описаны в <code>AGENTS.md</code> и <code>CLAUDE.md</code>.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <template id="stageTemplate">
+      <article class="stage-card">
+        <header class="stage-header">
+          <div>
+            <p class="stage-kicker"></p>
+            <h3></h3>
+          </div>
+          <span class="stage-status"></span>
+        </header>
+        <p class="stage-description"></p>
+        <dl class="stage-meta">
+          <div>
+            <dt>Срок</dt>
+            <dd class="stage-duration"></dd>
+          </div>
+          <div>
+            <dt>Когда полезно</dt>
+            <dd class="stage-usable"></dd>
+          </div>
+        </dl>
+        <ul class="task-list"></ul>
+      </article>
+    </template>
+
+    <script src="./app.js?v=20260515-1810"></script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://running-coach.local/schemas/meal.schema.json",
+  "title": "Meal",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "date": { "type": "string", "format": "date" },
+    "meal": {
+      "type": "string",
+      "enum": ["breakfast", "lunch", "dinner", "snack", "unknown"]
+    },
+    "raw_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "estimated_grams": { "type": ["number", "null"], "minimum": 0 }
+        },
+        "required": ["name", "estimated_grams"]
+      }
+    },
+    "calories_range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "protein_g_range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "carbs_g_range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "fat_g_range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number", "minimum": 0 }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "required": [
+    "date",
+    "meal",
+    "raw_files",
+    "items",
+    "calories_range",
+    "protein_g_range",
+    "carbs_g_range",
+    "fat_g_range",
+    "confidence"
+  ]
+}

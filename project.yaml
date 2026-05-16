@@ -1,0 +1,24 @@
+﻿name: running-coach
+version: 0.1.0
+root: <PROJECT_ROOT>
+timezone: Europe/Moscow
+bots:
+  running:
+    env_token: RUNNING_TELEGRAM_BOT_TOKEN
+    default_agent: running-qa-agent
+  nutrition:
+    env_token: NUTRITION_TELEGRAM_BOT_TOKEN
+    default_agent: nutrition-qa-agent
+agents:
+  - running-data-agent
+  - running-plan-agent
+  - running-schedule-agent
+  - running-qa-agent
+  - nutrition-data-agent
+  - nutrition-plan-agent
+  - grocery-agent
+storage:
+  workouts: data/workouts
+  nutrition: data/nutrition
+  reports: reports
+  dashboard: dashboard

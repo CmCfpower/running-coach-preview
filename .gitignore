@@ -1,0 +1,25 @@
+# Runtime and secrets
+.env
+.env.*
+Keys.txt
+*.key
+*.pem
+
+# Personal data
+data/
+reports/
+logs/
+
+# Local tooling/cache
+.claude/
+.tools/
+__pycache__/
+*.py[cod]
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+node_modules/

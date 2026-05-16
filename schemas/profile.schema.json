@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://running-coach.local/schemas/profile.schema.json",
+  "title": "AthleteProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": ["integer", "null"], "minimum": 1, "maximum": 120 },
+    "sex": { "type": "string" },
+    "height_cm": { "type": ["number", "null"], "minimum": 50, "maximum": 250 },
+    "weight_kg": { "type": ["number", "null"], "minimum": 20, "maximum": 300 },
+    "resting_hr": { "type": ["integer", "null"], "minimum": 20, "maximum": 120 },
+    "max_hr": { "type": ["integer", "null"], "minimum": 80, "maximum": 240 },
+    "goals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "training_days_per_week": { "type": "integer", "minimum": 0, "maximum": 14 },
+    "available_training_days": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "food_preferences": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "allergies": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "name",
+    "age",
+    "sex",
+    "height_cm",
+    "weight_kg",
+    "resting_hr",
+    "max_hr",
+    "goals",
+    "training_days_per_week",
+    "available_training_days",
+    "limitations",
+    "food_preferences",
+    "allergies"
+  ]
+}
